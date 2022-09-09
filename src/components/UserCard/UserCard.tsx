@@ -1,21 +1,29 @@
 import React from "react";
 
 import {
-  CardActions,
-  Button,
-  CardHeader,
   IconButton,
-  Typography,
   FormGroup,
   FormControlLabel,
   Checkbox,
   Divider,
   Chip,
 } from "@mui/material";
-import { Card, Content } from "./styles";
 
-import DeleteIcon from "@mui/icons-material/Delete";
-import CardContent from "@mui/material/CardContent";
+import {
+  Delete as DeleteIcon,
+  LibraryAddCheck as LibraryAddCheckIcon,
+} from "@mui/icons-material";
+
+import {
+  Card,
+  CheckboxContent,
+  UserName,
+  CardHeader,
+  DividerBox,
+  TotalAmount,
+  TotalAmountContent,
+} from "./styles";
+
 import { TProduct, TUser } from "./types";
 
 interface IUserCard {
@@ -25,21 +33,26 @@ interface IUserCard {
 
 export const UserCard: React.FC<IUserCard> = ({ user, products }) => {
   return (
-    <Card>
+    <Card variant="outlined">
       <CardHeader
-        title={
-          <Typography variant="h6" sx={{ margin: "0 8px" }}>
-            {user.name}
-          </Typography>
-        }
+        title={<UserName variant="h6">{user.name}</UserName>}
         action={
-          <IconButton aria-label="settings">
-            <DeleteIcon fontSize="small" />
-          </IconButton>
+          <>
+            <IconButton aria-label="settings">
+              <DeleteIcon fontSize="small" />
+            </IconButton>
+          </>
         }
       />
 
-      <Content>
+      <DividerBox>
+        <Divider variant="fullWidth">
+          <IconButton aria-label="settings">
+            <LibraryAddCheckIcon fontSize="small" />
+          </IconButton>
+        </Divider>
+      </DividerBox>
+      <CheckboxContent>
         <FormGroup>
           {products.map((product) => (
             <FormControlLabel
@@ -49,33 +62,14 @@ export const UserCard: React.FC<IUserCard> = ({ user, products }) => {
             />
           ))}
         </FormGroup>
-      </Content>
+      </CheckboxContent>
 
-      <CardActions>
-        <Button
-          fullWidth
-          size="small"
-          variant="outlined"
-          sx={{ backgroundColor: "#F6FFF8", color: "black" }}
-        >
-          Выбрать всё
-        </Button>
-      </CardActions>
-
-      <CardContent
-        sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
+      <TotalAmountContent>
         <Divider variant="fullWidth">
           <Chip label="Итого" />
         </Divider>
-        <Typography component="div" variant="h6" m={"0 auto"} pt={2}>
-          4343 &#8381;
-        </Typography>
-      </CardContent>
+        <TotalAmount variant="h6">4343 &#8381;</TotalAmount>
+      </TotalAmountContent>
     </Card>
   );
 };

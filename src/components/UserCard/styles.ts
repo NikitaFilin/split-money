@@ -1,6 +1,11 @@
 import styled from "@emotion/styled";
 
-import { Card as MuiCard, CardContent } from "@mui/material";
+import {
+  Card as MuiCard,
+  CardHeader as MuiCardHeader,
+  CardContent,
+  Typography,
+} from "@mui/material";
 
 export const Card = styled(MuiCard)({
   minWidth: 200,
@@ -16,6 +21,30 @@ export const Card = styled(MuiCard)({
   backgroundColor: "#E7ECFF",
 });
 
-export const Content = styled(CardContent)({
+export const CardHeader = styled(MuiCardHeader)({
+  padding: "16px 8px 8px 8px",
+});
+
+export const UserName = styled(Typography)({
+  margin: "0 8px",
+});
+
+export const DividerBox = styled.div({
+  width: "100%",
+});
+
+export const CheckboxContent = styled(CardContent)({
   flex: 1,
+  padding: 8,
+});
+
+export const TotalAmountContent = styled(CardContent)({
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
+});
+
+export const TotalAmount = styled(Typography)({
+  margin: "0 auto",
+  paddingTop: 16,
 });
