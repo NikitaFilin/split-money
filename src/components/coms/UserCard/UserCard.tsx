@@ -25,6 +25,8 @@ import {
 } from "./styles";
 
 import { TProduct, TUser } from "./types";
+import { useDispatch } from "react-redux";
+import { deleteUser } from "../../../app/usersSlice";
 
 interface IUserCard {
   products: TProduct[];
@@ -32,13 +34,18 @@ interface IUserCard {
 }
 
 export const UserCard: React.FC<IUserCard> = ({ user, products }) => {
+  const dispatch = useDispatch();
+
   return (
     <Card variant="outlined">
       <CardHeader
         title={<UserName variant="h6">{user.name}</UserName>}
         action={
           <>
-            <IconButton aria-label="settings">
+            <IconButton
+              aria-label="delete"
+              onClick={() => dispatch(deleteUser(user.id))}
+            >
               <DeleteIcon fontSize="small" />
             </IconButton>
           </>
