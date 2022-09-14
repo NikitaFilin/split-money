@@ -1,7 +1,8 @@
 import { Box, Chip, Divider, IconButton } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addProduct, addUser } from "../../app/usersSlice";
+import { addUser } from "../../app/usersSlice";
+import { addProduct } from "../../app/productsSlice";
 import CloseIcon from "@mui/icons-material/Close";
 
 import { Input } from "../coms/Input";
