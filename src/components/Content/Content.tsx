@@ -6,8 +6,8 @@ import { UserCard } from "../coms/UserCard";
 import { Container } from "./styles";
 
 export const Content = () => {
-  const selectUsers = (state: RootState) => state.usersState.users;
-  const selectProducts = (state: RootState) => state.productsState.products;
+  const selectUsers = (state: RootState) => state.globalState.users;
+  const selectProducts = (state: RootState) => state.globalState.products;
 
   const users = useSelector(selectUsers);
   const products = useSelector(selectProducts);

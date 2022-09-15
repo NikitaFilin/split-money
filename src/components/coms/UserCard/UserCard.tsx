@@ -26,8 +26,12 @@ import {
 
 import { TProduct, TUser } from "./types";
 import { useDispatch } from "react-redux";
-import { deleteUser } from "../../../app/usersSlice";
-import { selectAllProducts, selectProduct } from "../../../app/productsSlice";
+import {
+  selectAllProducts,
+  selectProduct,
+  deleteUser,
+  recalculateAmount,
+} from "../../../app/globalSlice";
 
 interface IUserCard {
   products: TProduct[];
@@ -61,6 +65,7 @@ export const UserCard: React.FC<IUserCard> = ({ user, products }) => {
         productChecked: checked,
       })
     );
+    dispatch(recalculateAmount());
   };
 
   const handleSelectAllProducts = () => {
@@ -70,6 +75,12 @@ export const UserCard: React.FC<IUserCard> = ({ user, products }) => {
         isSelectedAllProducts: isSelectedAllProducts,
       })
     );
+    dispatch(recalculateAmount());
+  };
+
+  const handleDeleteUser = () => {
+    dispatch(deleteUser(user.id));
+    dispatch(recalculateAmount());
   };
 
   return (
@@ -78,10 +89,7 @@ export const UserCard: React.FC<IUserCard> = ({ user, products }) => {
         title={<UserName variant="h6">{user.name}</UserName>}
         action={
           <>
-            <IconButton
-              aria-label="delete"
-              onClick={() => dispatch(deleteUser(user.id))}
-            >
+            <IconButton aria-label="delete" onClick={handleDeleteUser}>
               <DeleteIcon fontSize="small" />
             </IconButton>
           </>
@@ -115,6 +123,11 @@ export const UserCard: React.FC<IUserCard> = ({ user, products }) => {
                 />
               }
               label={product.name}
+              sx={{
+                ".MuiFormControlLabel-label": {
+                  color: !!product.chosenProductUsers.length ? "gray" : "black",
+                },
+              }}
             />
           ))}
         </FormGroup>
