@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import {
   IconButton,
@@ -27,6 +27,7 @@ import {
 import { TProduct, TUser } from "./types";
 import { useDispatch } from "react-redux";
 import { deleteUser } from "../../../app/usersSlice";
+import { selectAllProducts, selectProduct } from "../../../app/productsSlice";
 
 interface IUserCard {
   products: TProduct[];
@@ -35,6 +36,41 @@ interface IUserCard {
 
 export const UserCard: React.FC<IUserCard> = ({ user, products }) => {
   const dispatch = useDispatch();
+
+  const userTotalAmount = useMemo(
+    () =>
+      products
+        .filter((product) => product.chosenProductUsers.includes(user.id))
+        .reduce((acc, el) => acc + el.averageCost, 0),
+    [products, user.id]
+  );
+
+  const isSelectedAllProducts = useMemo(
+    () =>
+      products.filter((product) => product.chosenProductUsers.includes(user.id))
+        .length === products.length,
+    [products, user.id]
+  );
+
+  const handleSelectProduct = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked, id } = event.target;
+    dispatch(
+      selectProduct({
+        userId: user.id,
+        productId: parseInt(id),
+        productChecked: checked,
+      })
+    );
+  };
+
+  const handleSelectAllProducts = () => {
+    dispatch(
+      selectAllProducts({
+        userId: user.id,
+        isSelectedAllProducts: isSelectedAllProducts,
+      })
+    );
+  };
 
   return (
     <Card variant="outlined">
@@ -54,8 +90,11 @@ export const UserCard: React.FC<IUserCard> = ({ user, products }) => {
 
       <DividerBox>
         <Divider variant="fullWidth">
-          <IconButton aria-label="settings">
-            <LibraryAddCheckIcon fontSize="small" />
+          <IconButton aria-label="settings" onClick={handleSelectAllProducts}>
+            <LibraryAddCheckIcon
+              fontSize="small"
+              color={isSelectedAllProducts ? "primary" : "inherit"}
+            />
           </IconButton>
         </Divider>
       </DividerBox>
@@ -64,7 +103,17 @@ export const UserCard: React.FC<IUserCard> = ({ user, products }) => {
           {products.map((product) => (
             <FormControlLabel
               key={product.id}
-              control={<Checkbox />}
+              control={
+                <Checkbox
+                  id={`${product.id}`}
+                  checked={
+                    !!product.chosenProductUsers.find(
+                      (chosenUser) => chosenUser === user.id
+                    )
+                  }
+                  onChange={handleSelectProduct}
+                />
+              }
               label={product.name}
             />
           ))}
@@ -75,7 +124,7 @@ export const UserCard: React.FC<IUserCard> = ({ user, products }) => {
         <Divider variant="fullWidth">
           <Chip label="Итого" />
         </Divider>
-        <TotalAmount variant="h6">4343 &#8381;</TotalAmount>
+        <TotalAmount variant="h6">{userTotalAmount} ₽</TotalAmount>
       </TotalAmountContent>
     </Card>
   );

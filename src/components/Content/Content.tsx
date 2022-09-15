@@ -15,7 +15,13 @@ export const Content = () => {
   return (
     <Container>
       {!!users.length ? (
-        users.map((user) => <UserCard user={user} products={products} />)
+        users.map((user) => (
+          <UserCard
+            key={`${user.name}-${user.id}`}
+            user={user}
+            products={products}
+          />
+        ))
       ) : (
         <Typography>Добавьте пользователей</Typography>
       )}

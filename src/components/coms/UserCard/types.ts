@@ -1,10 +1,12 @@
+export type TUser = {
+  id: number;
+  name: string;
+};
+
 export type TProduct = {
   id: number;
   name: string;
   price: number;
-};
-
-export type TUser = {
-  id: number;
-  name: string;
+  chosenProductUsers: number[];
+  averageCost: number;
 };
