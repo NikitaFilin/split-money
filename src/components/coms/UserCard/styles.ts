@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 
 export const Card = styled(MuiCard)({
-  minWidth: 200,
+  minWidth: 240,
   minHeight: 320,
 
   display: "flex",
@@ -23,6 +23,10 @@ export const Card = styled(MuiCard)({
 
 export const CardHeader = styled(MuiCardHeader)({
   padding: "16px 8px 8px 8px",
+
+  ".MuiCardHeader-action": {
+    alignSelf: "center",
+  },
 });
 
 export const UserName = styled(Typography)({

@@ -89,7 +89,11 @@ export const UserCard: React.FC<IUserCard> = ({ user, products }) => {
         title={<UserName variant="h6">{user.name}</UserName>}
         action={
           <>
-            <IconButton aria-label="delete" onClick={handleDeleteUser}>
+            <IconButton
+              aria-label="delete"
+              onClick={handleDeleteUser}
+              sx={{ alignItems: "center" }}
+            >
               <DeleteIcon fontSize="small" />
             </IconButton>
           </>

@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { TProduct, TUser } from "../components/coms/UserCard/types";
 
+// 1. Не уникальный id пользователя, ?товара
+
 const initialUsers: TUser[] = [
   { id: 1, name: "Никита" },
   { id: 2, name: "Олег" },
@@ -56,6 +58,13 @@ const globalSlice = createSlice({
       state.products.push(product);
     },
 
+    removeProduct: (state, action) => {
+      const productId = action.payload;
+      state.products = state.products.filter(
+        (product) => product.id !== productId
+      );
+    },
+
     selectProduct: (state, action) => {
       const { userId, productId, productChecked } = action.payload;
 
@@ -74,14 +83,6 @@ const globalSlice = createSlice({
                 : product.chosenProductUsers)
         );
       }
-
-      // Пересчитываем averageCost по товарам
-      // state.products.map(
-      //   (product) =>
-      //     (product.averageCost = Math.ceil(
-      //       product.price / product.chosenProductUsers.length
-      //     ))
-      // );
     },
 
     selectAllProducts: (state, action) => {
@@ -107,14 +108,6 @@ const globalSlice = createSlice({
           return product.chosenProductUsers.push(userId);
         });
       }
-
-      // Пересчитываем averageCost по товарам
-      // state.products.map(
-      //   (product) =>
-      //     (product.averageCost = Math.ceil(
-      //       product.price / product.chosenProductUsers.length
-      //     ))
-      // );
     },
 
     recalculateAmount: (state) => {
@@ -133,6 +126,7 @@ export const {
   addUser,
   deleteUser,
   addProduct,
+  removeProduct,
   selectAllProducts,
   selectProduct,
   recalculateAmount,
