@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/split-money/static/css/main.9071bff3.css",
+    "main.js": "/split-money/static/js/main.b3583130.js",
+    "index.html": "/split-money/index.html",
+    "main.9071bff3.css.map": "/split-money/static/css/main.9071bff3.css.map",
+    "main.b3583130.js.map": "/split-money/static/js/main.b3583130.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9071bff3.css",
+    "static/js/main.b3583130.js"
+  ]
+}
