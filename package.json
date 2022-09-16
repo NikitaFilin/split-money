@@ -1,6 +1,7 @@
 {
   "name": "split-money-redux-ts",
   "version": "0.1.0",
+  "main": "src/index.tsx",
   "homepage": "https://nikitafilin.github.io/split-money/",
   "private": true,
   "dependencies": {
