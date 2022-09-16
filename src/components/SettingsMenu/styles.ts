@@ -4,13 +4,19 @@ import { Button, Stack } from "@mui/material";
 export const Container = styled.div({
   position: "relative",
 
-  width: "420px",
+  width: "300px",
   height: "100%",
   display: "flex",
   flexDirection: "column",
 
-  padding: "4px 12px",
+  padding: "8px 12px",
   backgroundColor: "#C6D8FF",
+
+  overflowY: "scroll",
+
+  "::-webkit-scrollbar": {
+    display: "none",
+  },
 });
 
 export const InputBlock = styled.div({
