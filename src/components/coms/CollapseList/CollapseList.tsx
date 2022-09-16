@@ -47,6 +47,7 @@ export const CollapseList: React.FC<ICollapseList> = ({
         <List>
           {(isUserList ? userItems : productItems)?.map((item: any) => (
             <ListItem
+              key={item.id}
               secondaryAction={
                 <IconButton edge="end" aria-label="delete">
                   <DeleteIcon onClick={() => handleDeleteItem(item.id)} />

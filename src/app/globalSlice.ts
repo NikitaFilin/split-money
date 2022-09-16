@@ -1,26 +1,43 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { TProduct, TUser } from "../components/coms/UserCard/types";
-
-// 1. Не уникальный id пользователя, ?товара
+import uniqid from "uniqid";
 
 const initialUsers: TUser[] = [
-  { id: 1, name: "Никита" },
-  { id: 2, name: "Олег" },
-  { id: 3, name: "Алина" },
-  { id: 4, name: "Наташа" },
+  { id: "test-1", name: "Никита" },
+  { id: "test-2", name: "Олег" },
+  { id: "test-3", name: "Алина" },
+  { id: "test-4", name: "Наташа" },
 ];
 
 const initialProducts: TProduct[] = [
   {
-    id: 1,
+    id: "test-product-1",
     name: "Молоко",
     price: 100,
     chosenProductUsers: [],
     averageCost: 100,
   },
-  { id: 2, name: "Мясо", price: 200, chosenProductUsers: [], averageCost: 200 },
-  { id: 3, name: "Рыба", price: 300, chosenProductUsers: [], averageCost: 300 },
-  { id: 4, name: "Хлеб", price: 400, chosenProductUsers: [], averageCost: 400 },
+  {
+    id: "test-product-2",
+    name: "Мясо",
+    price: 200,
+    chosenProductUsers: [],
+    averageCost: 200,
+  },
+  {
+    id: "test-product-3",
+    name: "Рыба",
+    price: 300,
+    chosenProductUsers: [],
+    averageCost: 300,
+  },
+  {
+    id: "test-product-4",
+    name: "Хлеб",
+    price: 400,
+    chosenProductUsers: [],
+    averageCost: 400,
+  },
 ];
 
 const globalSlice = createSlice({
@@ -31,7 +48,8 @@ const globalSlice = createSlice({
   },
   reducers: {
     addUser: (state, action) => {
-      const user = { id: state.users.length + 1, name: action.payload };
+      const uniqueId = uniqid();
+      const user = { id: uniqueId, name: action.payload };
       state.users.push(user);
     },
 
@@ -48,8 +66,10 @@ const globalSlice = createSlice({
     },
 
     addProduct: (state, action) => {
+      const uniqueId = uniqid();
+
       const product = {
-        id: state.products.length + 1,
+        id: uniqueId,
         name: action.payload.name,
         price: action.payload.price,
         chosenProductUsers: [],
@@ -86,7 +106,7 @@ const globalSlice = createSlice({
     },
 
     selectAllProducts: (state, action) => {
-      const userId = parseInt(action.payload.userId);
+      const userId = action.payload.userId;
 
       if (action.payload.isSelectedAllProducts) {
         state.products.map(

@@ -61,7 +61,7 @@ export const UserCard: React.FC<IUserCard> = ({ user, products }) => {
     dispatch(
       selectProduct({
         userId: user.id,
-        productId: parseInt(id),
+        productId: id,
         productChecked: checked,
       })
     );
